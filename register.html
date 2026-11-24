@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGRO-PICK | Register</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="landing-nav">
+    <a class="brand" href="index.html">🌱 AGRO-PICK</a>
+    <nav><a href="index.html">Home</a><a href="login.html">Login</a></nav>
+  </header>
+  <main class="auth-container">
+    <section class="auth-box">
+      <h1>🌱 AGRO-PICK</h1><h2>Create Account</h2><p>Register to get started.</p>
+      <form id="registerForm">
+        <label for="regName">Full Name</label>
+        <input type="text" id="regName" placeholder="Enter your full name" autocomplete="name" required>
+        <label for="regEmail">Email Address</label>
+        <input type="email" id="regEmail" placeholder="Enter your email" autocomplete="email" required>
+        <label for="regPassword">Password</label>
+        <input type="password" id="regPassword" placeholder="At least 6 characters" minlength="6" autocomplete="new-password" required>
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" minlength="6" autocomplete="new-password" required>
+        <button type="submit" class="btn">Register</button>
+      </form>
+      <p id="registerMessage" class="message" role="alert"></p>
+      <p>Already have an account? <a href="login.html">Login here</a></p>
+      <a href="index.html">← Back to Home</a>
+    </section>
+  </main>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRO-PICK | Route Monitor</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        .route-page {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(270px, 0.8fr);
+            gap: 18px;
+        }
+
+        .route-map {
+            height: 570px;
+            width: 100%;
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        .route-information {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .route-box {
+            background: #063a2b;
+            border: 1px solid #28634b;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .route-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .route-status {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #28634b;
+            gap: 10px;
+        }
+
+        .route-status:last-child {
+            border-bottom: none;
+        }
+
+        .status-good {
+            color: #51e65b;
+            font-weight: bold;
+        }
+
+        .status-warning {
+            color: #ffc12c;
+            font-weight: bold;
+        }
+
+        .route-button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #159b45;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .route-button:hover {
+            background: #20bd55;
+        }
+
+        .route-select {
+            width: 100%;
+            padding: 12px;
+            background: #00291e;
+            color: white;
+            border: 1px solid #28634b;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+
+        .route-details {
+            line-height: 1.8;
+            font-size: 13px;
+            color: #d3e6d8;
+        }
+
+        .route-heading {
+            margin-bottom: 20px;
+        }
+
+        .route-heading h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .route-heading p {
+            color: #b4c9bc;
+            font-size: 14px;
+        }
+
+        .map-status {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #124b2b;
+            color: #63e979;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+            background: #063a2b;
+            color: white;
+        }
+
+        @media(max-width: 850px) {
+            .route-page {
+                grid-template-columns: 1fr;
+            }
+
+            .route-map {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🌱📍</div>
+            <h2>AGRO-PICK</h2>
+            <p>Monitor. Plan. Pick Smart.</p>
+        </div>
+
+        <div class="location-box">
+            📍 <span>Bukidnon</span>
+            <span>⌄</span>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="dashboard.html" class="menu-link">
+                <span>⌂</span> Dashboard
+            </a>
+
+            <a href="map.html" class="menu-link active">
+                <span>📍</span> Route Monitor
+            </a>
+
+            <a href="products.html" class="menu-link">
+                <span>🌱</span> Farm Products
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>🔔</span> Alerts
+                <span class="notification-count">3</span>
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>📊</span> Reports
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>⚙️</span> Settings
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>👤</span> Profile
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-location">📍 Bukidnon</div>
+            <p>Safe Journey.</p>
+            <p>Successful Pickup!</p>
+
+            <button onclick="logout()" class="logout-btn">
+                🚪 Logout
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div class="system-title">
+                <span class="system-icon">🌱</span>
+
+                <div>
+                    <h3>Real-Time Monitoring System</h3>
+                    <p>Travel Safe. Buy Local.</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="notification-btn"
+                        onclick="alert('You have 3 notifications.')">
+                    🔔 <span>3</span>
+                </button>
+
+                <div class="profile">
+                    <div class="avatar">👨🏻</div>
+                    <div>
+                        <h4 id="profileName">Juan Dela Cruz</h4>
+                        <p>Buyer</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE HEADING -->
+        <div class="route-heading">
+            <span class="eyebrow">AGRICULTURAL ADVISORY</span>
+            <h1>📍 Route Monitor</h1>
+            <p>Monitor routes, pickup locations, and road safety in Bukidnon.</p>
+        </div>
+
+
+        <!-- ROUTE MONITOR CONTENT -->
+        <section class="route-page">
+
+            <!-- INTERACTIVE MAP -->
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <h3>🗺️ Bukidnon Route & Safety Map</h3>
+                    <span class="map-status">● Map Ready</span>
+                </div>
+
+                <div id="routeMap" class="route-map"></div>
+
+            </div>
+
+
+            <!-- RIGHT INFORMATION -->
+            <div class="route-information">
+
+                <!-- ROUTE SELECTOR -->
+                <div class="route-box">
+
+                    <h3>🚜 Find a Route</h3>
+<label for="origin">Starting Location</label>
+
+<div class="location-search">
+    <input
+        type="text"
+        id="origin"
+        class="route-select"
+        placeholder="🔍 Search your starting location..."
+    >
+
+    <button type="button" onclick="searchLocation()">
+        Search
+    </button>
+</div>>
+
+                    <label for="destination"
+                           style="display:block;margin-top:15px;">
+                        Search Pickup Destination
+                    </label>
+
+                    <select id="destination" class="route-select">
+                        <option value="dahilayan">Dahilayan</option>
+                        <option value="lantapan">Lantapan</option>
+                        <option value="manolo">Manolo Fortich</option>
+                    </select>
+
+                    <button class="route-button" onclick="findRoute()">
+                        🔍 Find Route
+                    </button>
+
+                </div>
+
+
+                <!-- ROAD STATUS -->
+                <div class="route-box">
+
+                    <h3>🛣️ Road Conditions</h3>
+
+                    <div class="route-status">
+                        <span>Malaybalay Road</span>
+                        <span class="status-good">Good</span>
+                    </div>
+
+                    <div class="route-status">
+                        <span>Dahilayan Road</span>
+                        <span class="status-warning">Caution</span>
+                    </div>
+
+                    <div class="route-status">
+                        <span>Lantapan Road</span>
+                        <span class="status-good">Clear</span>
+                    </div>
+
+                    <div class="route-status">
+                        <span>Manolo Fortich Road</span>
+                        <span class="status-good">Good</span>
+                    </div>
+
+                </div>
+
+
+                <!-- TRAVEL ADVISORY -->
+                <div class="route-box">
+
+                    <h3>⚠️ Travel Advisory</h3>
+
+                    <div class="advisory-warning">
+                        Proceed with Caution
+                    </div>
+
+                    <p class="route-details" style="margin-top:15px;">
+                        Moderate risk may be present in some road areas.
+                        Always check official road and weather updates
+                        before travelling.
+                    </p>
+
+                </div>
+
+
+                <!-- ROUTE INFORMATION -->
+                <div class="route-box">
+
+                    <h3>📌 Selected Route</h3>
+
+                    <div class="route-details" id="routeResult">
+                        Starting Location: Malaybalay City<br>
+                        Destination: Dahilayan<br>
+                        Route Status: Not calculated
+                    </div>
+
+                    <button class="route-button" onclick="showAllMarkers()">
+                        📍 Show Pickup Locations
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="dashboard-footer">
+            © 2026 AGRO-PICK | Real-Time Agricultural Monitoring System
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- LEAFLET JAVASCRIPT -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="js/auth.js"></script>
+
+<script>
+
+    
+
+
+    // PICKUP LOCATIONS
+    const locations = {
+
+        malaybalay: {
+            name: "Malaybalay City",
+            coords: [8.157, 125.127]
+        },
+
+        dahilayan: {
+            name: "Dahilayan",
+            coords: [8.200, 124.920]
+        },
+
+        lantapan: {
+            name: "Lantapan",
+            coords: [8.000, 124.990]
+        },
+
+        manolo: {
+            name: "Manolo Fortich",
+            coords: [8.370, 124.860]
+        }
+
+    };
+
+
+    // ADD MAP MARKERS
+    Object.values(locations).forEach(location => {
+
+        L.marker(location.coords)
+            .addTo(map)
+            .bindPopup(`
+                <b>📍 ${location.name}</b><br>
+                AGRO-PICK Location
+            `);
+
+    });
+
+
+    // DRAW SAMPLE ROUTE
+    let routeLine = null;
+
+    function findRoute() {
+
+        const origin = document.getElementById("origin").value;
+        const destination = document.getElementById("destination").value;
+
+        if (origin === destination) {
+            alert("Please select a different destination.");
+            return;
+        }
+
+        const start = locations[origin];
+        const end = locations[destination];
+
+        if (routeLine) {
+            map.removeLayer(routeLine);
+        }
+
+        routeLine = L.polyline(
+            [start.coords, end.coords],
+            {
+                color: "#168cff",
+                weight: 5,
+                opacity: 0.9,
+                dashArray: "10, 8"
+            }
+        ).addTo(map);
+
+        map.fitBounds(routeLine.getBounds(), {
+            padding: [40, 40]
+        });
+
+        document.getElementById("routeResult").innerHTML = `
+            Starting Location: ${start.name}<br>
+            Destination: ${end.name}<br>
+            Route Status: Sample route displayed
+        `;
+    }
+
+
+    // SHOW ALL PICKUP LOCATIONS
+    function showAllMarkers() {
+
+        const group = L.featureGroup(
+            Object.values(locations).map(location =>
+                L.marker(location.coords)
+            )
+        );
+
+        map.fitBounds(group.getBounds(), {
+            padding: [40, 40]
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGRO-PICK | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🌱📍</div>
+            <h2>AGRO-PICK</h2>
+            <p>Monitor. Plan. Pick Smart.</p>
+        </div>
+
+        <div class="location-box">
+            📍 <span>Bukidnon</span>
+            <span>⌄</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard.html" class="menu-link active">
+                <span>⌂</span> Dashboard
+            </a>
+
+            <a href="map.html" class="menu-link">
+                <span>📍</span> Route Monitor
+            </a>
+
+            <a href="products.html" class="menu-link">
+                <span>🌱</span> Farm Products
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>🔔</span> Alerts
+                <span class="notification-count">3</span>
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>📊</span> Reports
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>⚙️</span> Settings
+            </a>
+
+            <a href="#" class="menu-link">
+                <span>👤</span> Profile
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-location">📍 Bukidnon</div>
+            <p>Safe Journey.</p>
+            <p>Successful Pickup!</p>
+
+            <button onclick="logout()" class="logout-btn">
+                🚪 Logout
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN DASHBOARD -->
+    <main class="main-content">
+
+        <!-- TOP NAVIGATION -->
+        <header class="topbar">
+
+            <div class="system-title">
+                <span class="system-icon">🌱</span>
+                <div>
+                    <h3>Real-Time Monitoring System</h3>
+                    <p>Travel Safe. Buy Local.</p>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="notification-btn" onclick="showNotifications()">
+                    🔔 <span>3</span>
+                </button>
+
+                <div class="profile">
+                    <div class="avatar">👨🏻</div>
+                    <div>
+                        <h4 id="profileName">Juan Dela Cruz</h4>
+                        <p>Buyer</p>
+                    </div>
+                    <span>⌄</span>
+                </div>
+
+            </div>
+        </header>
+
+
+        <!-- STATUS CARDS -->
+        <section class="status-grid">
+
+            <div class="status-card weather">
+                <div class="status-icon">🌧️</div>
+                <div class="status-info">
+                    <h4>Weather Condition</h4>
+                    <h1>24°C</h1>
+                    <p>Heavy Rain</p>
+                </div>
+                <div class="status-extra">
+                    <p>💧 Humidity</p>
+                    <strong>95%</strong>
+                    <p>💨 Wind</p>
+                    <strong>12 km/h</strong>
+                </div>
+            </div>
+
+            <div class="status-card landslide">
+                <div class="status-icon">⛰️</div>
+                <div class="status-info">
+                    <h4>Landslide Risk</h4>
+                    <h1>Moderate</h1>
+                    <p>Be Alert</p>
+                </div>
+            </div>
+
+            <div class="status-card flood">
+                <div class="status-icon">🌊</div>
+                <div class="status-info">
+                    <h4>Flood Status</h4>
+                    <h1>Normal</h1>
+                    <p>No Flood Alert</p>
+                </div>
+            </div>
+
+            <div class="status-card road">
+                <div class="status-icon">🛣️</div>
+                <div class="status-info">
+                    <h4>Road Condition</h4>
+                    <h1>Good</h1>
+                    <p>All Clear</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- MAP AND TRAVEL ADVISORY -->
+        <section class="middle-grid">
+
+            <!-- ROUTE MAP -->
+            <div class="panel map-panel">
+
+                <div class="panel-heading">
+                    <h3>🗺️ Route & Safety Map</h3>
+
+                    <div class="map-legend">
+                        <span class="safe-dot">● Safe</span>
+                        <span class="caution-dot">● Caution</span>
+                        <span class="danger-dot">● Danger</span>
+                    </div>
+
+                    <a href="map.html" class="view-link">View Full Map →</a>
+                </div>
+
+                <div class="map-area">
+
+                    <div class="map-roads"></div>
+
+                    <svg class="route-svg" viewBox="0 0 1000 400"
+                         preserveAspectRatio="none">
+                        <polyline
+                            points="130,280 220,310 320,260 420,240 510,190 610,220 700,150 820,100"
+                            fill="none"
+                            stroke="#ffffff"
+                            stroke-width="13"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                        <polyline
+                            points="130,280 220,310 320,260 420,240 510,190 610,220 700,150 820,100"
+                            fill="none"
+                            stroke="#168cff"
+                            stroke-width="8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
+
+                    <div class="map-pin buyer-pin">
+                        🔵
+                        <span>Your Location<br>(Buyer)</span>
+                    </div>
+
+                    <div class="map-pin farm-pin">
+                        📍
+                        <span>Farm Destination<br>(Pickup Point)</span>
+                    </div>
+
+                    <div class="risk-zone">⚠️ Landslide-Prone Area<br>(Moderate Risk)</div>
+
+                    <div class="map-controls">
+                        <button onclick="zoomMap(1)">+</button>
+                        <button onclick="zoomMap(-1)">−</button>
+                        <button onclick="resetMap()">◎</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- TRAVEL ADVISORY -->
+            <div class="panel advisory-panel">
+
+                <div class="advisory-heading">
+                    🛡️ <h2>Travel Advisory</h2>
+                </div>
+
+                <div class="advisory-warning">
+                    ⚠️ Proceed with Caution
+                </div>
+
+                <p class="advisory-description">
+                    Moderate risk areas are detected along your route
+                    due to heavy rain.
+                </p>
+
+                <h4>Recommended Actions:</h4>
+
+                <ul class="recommendations">
+                    <li>🟢 Consider using the alternative route
+                        (via Malaybalay–Dahilayan Road).</li>
+                    <li>🟢 Check for updates before departure.</li>
+                </ul>
+
+                <a href="map.html" class="safe-route-btn">
+                    View Safe Route ↗
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTTOM DASHBOARD -->
+        <section class="bottom-grid">
+
+            <!-- WEATHER FORECAST -->
+            <div class="panel forecast-panel">
+
+                <div class="panel-heading">
+                    <h3>📅 7-Day Weather Forecast</h3>
+                    <a href="map.html" class="view-link">View Details →</a>
+                </div>
+
+                <div class="forecast-grid">
+
+                    <div class="forecast-day">
+                        <p>Wed</p>
+                        <span>🌧️</span>
+                        <strong>24°</strong>
+                        <small>20°</small>
+                    </div>
+
+                    <div class="forecast-day">
+                        <p>Thu</p>
+                        <span>🌤️</span>
+                        <strong>25°</strong>
+                        <small>21°</small>
+                    </div>
+
+                    <div class="forecast-day">
+                        <p>Fri</p>
+                        <span>🌧️</span>
+                        <strong>26°</strong>
+                        <small>22°</small>
+                    </div>
+
+                    <div class="forecast-day">
+                        <p>Sat</p>
+                        <span>🌧️</span>
+                        <strong>25°</strong>
+                        <small>21°</small>
+                    </div>
+
+                    <div class="forecast-day">
+                        <p>Sun</p>
+                        <span>☀️</span>
+                        <strong>26°</strong>
+                        <small>22°</small>
+                    </div>
+
+                    <div class="forecast-day">
+                        <p>Mon</p>
+                        <span>🌧️</span>
+                        <strong>25°</strong>
+                        <small>21°</small>
+                    </div>
+
+                    <div class="forecast-day">
+                        <p>Tue</p>
+                        <span>☀️</span>
+                        <strong>27°</strong>
+                        <small>23°</small>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- ACTIVE ALERTS -->
+            <div class="panel alerts-panel">
+
+                <div class="panel-heading">
+                    <h3>🔔 Active Alerts</h3>
+                    <a href="#" class="view-link">View All →</a>
+                </div>
+
+                <div class="alert-item">
+                    <span class="alert-icon red">!</span>
+                    <div>
+                        <strong>Heavy Rain Alert</strong>
+                        <p>Bukidnon</p>
+                    </div>
+                    <small>2h ago</small>
+                </div>
+
+                <div class="alert-item">
+                    <span class="alert-icon yellow">⚠</span>
+                    <div>
+                        <strong>Landslide Risk Increase</strong>
+                        <p>Malaybalay Area</p>
+                    </div>
+                    <small>3h ago</small>
+                </div>
+
+                <div class="alert-item">
+                    <span class="alert-icon blue">i</span>
+                    <div>
+                        <strong>Road Closure</strong>
+                        <p>Dahilayan Road</p>
+                    </div>
+                    <small>4h ago</small>
+                </div>
+
+            </div>
+
+
+            <!-- ROAD CONDITIONS -->
+            <div class="panel road-panel">
+
+                <div class="panel-heading">
+                    <h3>🛣️ Route Conditions</h3>
+                    <a href="map.html" class="view-link">View Details →</a>
+                </div>
+
+                <div class="road-item">
+                    <div class="road-image">🌄</div>
+                    <div class="road-info">
+                        <strong>Malaybalay–Dahilayan Rd</strong>
+                        <p class="moderate">⚠ Moderate Risk</p>
+                        <small>Due to heavy rain</small>
+                    </div>
+                </div>
+
+                <div class="road-item">
+                    <div class="road-image">🏞️</div>
+                    <div class="road-info">
+                        <strong>Kiamba–Lantapan Rd</strong>
+                        <p class="clear">🟢 Clear</p>
+                        <small>Good Condition</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="dashboard-footer">
+            © 2026 AGRO-PICK | Real-Time Agricultural Monitoring System
+        </footer>
+
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+
+<script>
+    function showNotifications() {
+        alert("You have 3 active notifications.");
+    }
+
+    function zoomMap(amount) {
+        const map = document.querySelector(".map-roads");
+        const current = Number(map.dataset.zoom || 1);
+        const next = Math.min(1.5, Math.max(1, current + amount * 0.1));
+        map.dataset.zoom = next;
+        map.style.transform = `scale(${next})`;
+    }
+
+    function resetMap() {
+        const map = document.querySelector(".map-roads");
+        map.dataset.zoom = 1;
+        map.style.transform = "scale(1)";
+    }
+</script>
+
+</body>
+</html>

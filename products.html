@@ -1,0 +1,197 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AGRO-PICK | Products</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+
+<body>
+
+<header class="landing-nav">
+    <a class="brand" href="dashboard.html">🌱 AGRO-PICK</a>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="map.html">Weather Map</a>
+        <a href="roads.html">Road Safety</a>
+        <a href="products.html">Products</a>
+        <button class="nav-logout" onclick="logout()">Logout</button>
+    </nav>
+</header>
+
+<main class="dashboard-wrap">
+
+    <div class="product-header">
+        <h1>Agricultural Products</h1>
+        <p>Explore fresh agricultural products from our local farmers.</p>
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="🔍 Search agricultural products..."
+        >
+    </div>
+
+    <h2 class="section-title">Our Product Categories</h2>
+
+    <div class="category-grid">
+
+        <div class="category-card active" onclick="filterCategory('all', this)">
+            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=500" alt="Millets">
+            <h3>Millets</h3>
+            <p>Healthy millet products</p>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('rice', this)">
+            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500" alt="Rice">
+            <h3>Rice</h3>
+            <p>Quality rice varieties</p>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('fruits', this)">
+            <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500" alt="Fruits">
+            <h3>Fruits</h3>
+            <p>Fresh nutritious fruits</p>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('gourds', this)">
+            <img src="https://images.unsplash.com/photo-1568584711271-6c929fb49e0c?w=500" alt="Gourds">
+            <h3>Gourds / Creepers</h3>
+            <p>Fresh vegetables and vines</p>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('masalas', this)">
+            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500" alt="Masalas">
+            <h3>Masalas</h3>
+            <p>Spices and seasonings</p>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('dryfruits', this)">
+            <img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=500" alt="Dry Fruits">
+            <h3>Dry Fruits / Nuts / Seeds / Snacks</h3>
+            <p>Nutritious nuts and snacks</p>
+        </div>
+
+        <div class="category-card" onclick="filterCategory('addons', this)">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500" alt="Add-ons">
+            <h3>Add-ons</h3>
+            <p>Other agricultural products</p>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Available Products</h2>
+
+    <div class="product-grid" id="productGrid">
+
+        <div class="product-card" data-category="millets">
+            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=500" alt="Millet">
+            <h3>Millet</h3>
+            <p>Healthy and nutritious grains.</p>
+            <div class="product-price">₱80 / kg</div>
+            <button onclick="viewProduct('Millet')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="rice">
+            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500" alt="White Rice">
+            <h3>White Rice</h3>
+            <p>Quality locally produced rice.</p>
+            <div class="product-price">₱55 / kg</div>
+            <button onclick="viewProduct('White Rice')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="rice">
+            <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?w=500" alt="Brown Rice">
+            <h3>Brown Rice</h3>
+            <p>Nutritious whole grain rice.</p>
+            <div class="product-price">₱75 / kg</div>
+            <button onclick="viewProduct('Brown Rice')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="fruits">
+            <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500" alt="Banana">
+            <h3>Banana</h3>
+            <p>Fresh locally harvested bananas.</p>
+            <div class="product-price">₱60 / kg</div>
+            <button onclick="viewProduct('Banana')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="fruits">
+            <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?w=500" alt="Mango">
+            <h3>Mango</h3>
+            <p>Sweet and fresh mangoes.</p>
+            <div class="product-price">₱100 / kg</div>
+            <button onclick="viewProduct('Mango')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="gourds">
+            <img src="https://images.unsplash.com/photo-1568584711271-6c929fb49e0c?w=500" alt="Squash">
+            <h3>Squash</h3>
+            <p>Fresh harvested squash.</p>
+            <div class="product-price">₱45 / kg</div>
+            <button onclick="viewProduct('Squash')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="gourds">
+            <img src="https://images.unsplash.com/photo-1563252722-6434563a985d?w=500" alt="Cucumber">
+            <h3>Cucumber</h3>
+            <p>Fresh green cucumber.</p>
+            <div class="product-price">₱40 / kg</div>
+            <button onclick="viewProduct('Cucumber')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="masalas">
+            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500" alt="Mixed Spices">
+            <h3>Mixed Spices</h3>
+            <p>Quality spices and seasonings.</p>
+            <div class="product-price">₱120 / pack</div>
+            <button onclick="viewProduct('Mixed Spices')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="dryfruits">
+            <img src="https://images.unsplash.com/photo-1508747703725-719777637510?w=500" alt="Cashew Nuts">
+            <h3>Cashew Nuts</h3>
+            <p>Crunchy and nutritious nuts.</p>
+            <div class="product-price">₱180 / pack</div>
+            <button onclick="viewProduct('Cashew Nuts')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="dryfruits">
+            <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500" alt="Mixed Seeds">
+            <h3>Mixed Seeds</h3>
+            <p>Nutritious assorted seeds.</p>
+            <div class="product-price">₱100 / pack</div>
+            <button onclick="viewProduct('Mixed Seeds')">View Product</button>
+        </div>
+
+        <div class="product-card" data-category="addons">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=500" alt="Fresh Vegetables">
+            <h3>Fresh Vegetables</h3>
+            <p>Additional fresh farm produce.</p>
+            <div class="product-price">₱50 / pack</div>
+            <button onclick="viewProduct('Fresh Vegetables')">View Product</button>
+        </div>
+
+    </div>
+
+    <p class="no-products" id="noProducts">
+        No products found. Please try another search.
+    </p>
+
+    <br>
+    <a class="btn" href="dashboard.html">Back to Dashboard</a>
+
+</main>
+
+<script src="js/products.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>
